@@ -3,5 +3,5 @@ logs/
 logs/
 build/
 .catkin_tools/
-.DS_Store/
+.DS_Store
 .vscode/
