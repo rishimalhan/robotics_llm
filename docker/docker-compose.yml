@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  ros_llm-service:
+    build: 
+      context: ../
+      dockerfile: docker/Dockerfile
+    tty: true
+    stdin_open: true
+    image: ros_llm
+    container_name: ros_llm
+    volumes:
+      - ../:/app
+    ports:
+      - "8888:8888"
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
