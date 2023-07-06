@@ -2,4 +2,6 @@ devel/
 logs/
 logs/
 build/
+.catkin_tools/
+.DS_Store/
 .vscode/
