@@ -1,0 +1,8 @@
+Everything about stable diffusion model and how to train it
+
+# Latent model
+
+# Train embeddings
+- Textual inversion is a process of finding correct prompt for an image
+- If stable diffusion is generating images because it has seen it somewhere but doesn't know what to call it or you want it to be called something, training embedding is the correct approach
+- So you teach the model a new vocabulary about a particular concept

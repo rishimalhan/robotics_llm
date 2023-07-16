@@ -1,0 +1,38 @@
+https://robot-help.github.io/
+
+
+# LLM Planners
+LLM strengths lie in common sense reasoning
+Weakness is confident hallucinations
+It is important for LLM based planners to know when they don't know and ask for help
+KnowNo builds on theory of conformal predictions to provide statistical guarantee on task completion
+Baselines may involve extensive fine tuning
+KnowNo requires no finetuning
+
+# Ambiguity Modes
+Spatial and Numeric
+Human preference to winograd schema
+
+# Conformal Prediction
+Conformal prediction is a method in ML and statistical inference to provide confidence to predictions
+It extends the idea of confidence to individual prediction than an entire population.
+
+Technique to provide statistical guarantees without assumptions on the prediction model.
+Applies a non-conformity measure called score function to labeled sets.
+The score is computed on unlabeled point.
+Comparing this score with labeled dataset, prediction region is determined
+
+# Uncertainty Alignment
+Sufficient help from human to ensure satistical guarantee of a task while also minimizing help
+Calibrated confidence + Minimal Help
+
+# Approach KnowNo
+A calibrated set similar to type of instruction LLM will be receiving is used as prefix to messages
+Command is sent and LLM is asked to generate options like MCQs
+Likelihood of why LLM predicted each option is computed (I think based on CP from given dataset)
+For a task success rate defined by humans, if prediction set is singleton then robot moves otherwise
+For higher set size, it calls human for help
+
+# Addon
+- Provide examples of diaglogues and interactions serving as basis for upcoming question
+- Given options generated, determine the likelihood of generating a specific response given probabilities

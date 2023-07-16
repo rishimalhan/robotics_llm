@@ -1,0 +1,65 @@
+https://www.microsoft.com/en-us/research/group/autonomous-systems-group-robotics/articles/chatgpt-for-robotics/
+
+- Natural language is more intuitive to humans
+- We would like to talk to robots to bridge the language gap and truly unlock assitive potentials
+- Robotics language right now is code and we use high-level natural language
+- Chat gpt has been trained on corpus that has massive levels of text
+- It can generate coherent and grammatically correct writeups to prompts and questions
+- Can gpt be used for interaction with environment?
+- Paper describes series of design principles that can be used to guide tasks
+- Special prompts, APIs, human feedback via text are part of this
+- Chat gpt combines the best of text generation, code generation, and conversationality
+- Chat gpt gets to be the logical problem solving element based on its rich knowledgebase and low level execution is handled by backend library implementation
+
+# Design Principles: Prompting LLM
+- Low level API to be written for controlling the robot behavior
+- It is important to use descriptive names for chatgpt to understand
+- A text prompt is written to chatgpt which describes the high level goal and all the functions available for it to use. Prompt can also have task constraints, code to use, and other arguments to be passed to the function
+- User stays in the loop to evaluate chatgpt code
+- Other features like tools (high-level function library) and constrains of the problem
+
+- From the paper:
+Constraints and requirements: Specify constraints or requirements that are relevant to the task. Ifthetask involves moving objects, you might specify the weight, size, and shape of the objects to be moved. 
+Environment: Describe env in which task is taking place. If navigating a maze, specify shape and size, obstacles, hazards to be avoided, etc.
+Current State: State of env, robot, and constraints
+Goals and Objectives: If to compelete a puzzle, the time and what completion means
+Soltution examples: As close to what a user may do.
+
+# High-level architecture
+- Role: Tell chatgpt what it is
+- Capabilities: Describe the different capabilities the AI has and specify in a sentence what each does. e.g. It can be asked to generate CODE and given REASON. It can also ask QUESTION to the user.
+- Give all the functions that are descriptive as capabilities.
+- An example can also be provided
+E.G. Move sphere to another location. Chatgpt can ask in response, there are two spheres and which one to move. Chatgpt can also have access to lists and dictionaries that have content like positions in them
+
+
+- It can deal with ambiguity. For instance if the list provided has different drinks, and you ask it for a drink, it will ask clarification questions 
+
+- Descriptive names are needed for LLMs to reason over functional connections over APIs
+- Imagine describing functions to a layman and asking it to determine order of the tasks
+
+# Fields of interaction
+Prompt Engineering
+Dialogue strategies
+
+# Abstract
+- Task specific prompting
+- GPT's ability to reason in a closed loop
+- GPT's ability to use free-form dialogue, parse XMLs, and synthesize code.
+- Usecase in robotics from logical, mathematical, and spatial reasoning to manipulation, motion planning, interaction of agents.
+- Open source place to vote on prompt techniques and sample sim
+- Robots or agents have capabilities to carry physics-informed interaction with their environment. The interactions require knowledge of real-world physics, environmental context, and physical actions.
+- The interface model or GPT is capable of text generation, code synthesis, and conversation. The model is expected to have communication ability in natural language, world knowhow, common sense reasoning, and capacity to interact with users.
+- Traditional models that used token embeddings, LLM features, or multi-modal model features for robotics are limited by scope, functionalities, and open-loop. GPT type models will require massive fine tuning if low-level APIs are used to synthesize instructions. Instead, using high-level set of instructions allow GPT to focus on problem solving and common sense reasoning. Low level APIs can be stitched to these high-level instructions.
+- Contrast to symbolic AI where symbols encode functionality and they have rigid connections to enable constraints, LLMs can synthesize new functions and also loosely enforce constraints based on prompts
+
+- Noticed the ability to construct even higher level functions with pharmacy example. Where it took the order and prepared a generalized function that takes a dictionary (contains order and quantity).
+
+
+# Observations
+- Write higher level functions using combinations  of descriptive functional library
+- Encode explicit world knowledge in addition to language model (e.g. SVG image of basketball)
+- Common sense reasoning (e.g. When asked for a drink mapping it to available objects that can be called drinks) (it knows healthy option will be coconut water and not diet coke)
+- Ability to take in constraints as natural language, mathematical, and spatial constructs and apply it to order set of instructions for the agent (e.g. inspect something as a three point circle with X degrees and Y distance)
+- It can learn a small scale skill (curriculum) and apply it for bigger and more complex tasks (e.g. ask it to write code using high-level function library to place objects. Use that to build stuff)
+- It can take user specified high-level textual feedback and map it to low-level API functions
