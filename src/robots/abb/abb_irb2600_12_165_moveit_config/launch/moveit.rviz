@@ -162,7 +162,7 @@ Visualization Manager:
         Scene Alpha: 1
         Scene Color: 136; 138; 133
         Scene Display Time: 0.20000000298023224
-        Show Scene Geometry: true
+        Show Scene Geometry: false
         Voxel Coloring: Z-Axis
         Voxel Rendering: Occupied Voxels
       Scene Robot:
@@ -320,9 +320,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.41479766368865967
+      Pitch: 0.4447977542877197
       Target Frame: base_link
-      Yaw: 0.4386066198348999
+      Yaw: 0.15361377596855164
     Saved: ~
 Window Geometry:
   Displays:

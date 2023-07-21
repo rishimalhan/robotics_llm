@@ -20,6 +20,7 @@ from tf.transformations import quaternion_matrix, quaternion_from_matrix
 # Internal
 
 from core.utils import get_param, get_absolute_file_path, dict_pose_to_ros_pose
+from core.visualization import visualize_planning_scene
 
 logging.basicConfig()
 logger = logging.getLogger("rosout")
@@ -33,13 +34,15 @@ def bootstrap_environment():
     environment = get_param("environment")
     meshes = environment.get("meshes")
     scene = PlanningSceneInterface(synchronous=True)
+    visual_meshes = []
     if meshes:
         for mesh_name, mesh in meshes.items():
-            visual_mesh_path = mesh.get("visual")
             collision_mesh_path = mesh.get("collision")
             pose = dict_pose_to_ros_pose(mesh.get("pose"))
+            visual_meshes.append((get_absolute_file_path(mesh.get("visual")), pose))
             mesh_path = get_absolute_file_path(collision_mesh_path)
             scene.add_mesh(mesh_name, pose, mesh_path)
+    visualize_planning_scene(visual_meshes)
 
 
 def bootstrap(args):
