@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="gripper" params="prefix">
+      <!-- gripper base link containing the majority of the gripper collision model -->
+      <link name="gripper_base_link">
+        <visual>
+          <origin xyz="0.0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://systems/assets/meshes/visual/point_suction.stl"/>
+          </geometry>
+          <material name="">
+            <color rgba="0.239215686 0.349019608 0.670588235 1" />
+          </material>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://systems/assets/meshes/collision/point_suction.stl"/>
+          </geometry>
+        </collision>
+      </link>
+      <joint name="${prefix}tool0-gripper" type="fixed">
+        <origin xyz="0 0.01 0.11" rpy="1.57 0 0" />
+        <parent link="${prefix}tool0" />
+        <child link="gripper_base_link" />
+      </joint>
+
+      <link name="grasp_frame"/>
+      <joint name="grasp" type="fixed">
+        <origin xyz="0 0.07 0" rpy="-1.57 0 0" />
+        <parent link="gripper_base_link" />
+        <child link="grasp_frame" />
+      </joint>
+
+
+</xacro:macro>
+
+</robot>

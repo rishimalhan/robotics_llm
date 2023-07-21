@@ -26,7 +26,7 @@ logger.setLevel(logging.INFO)
 
 
 class MoveitInterface:
-    def __init__(self, group_name, apply_orientation_constraint=False):
+    def __init__(self, group_name):
         self.group_name = group_name
         self.robot = RobotCommander()
         self.scene = PlanningSceneInterface(synchronous=True)

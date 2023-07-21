@@ -1,0 +1,14 @@
+# The interface has all basic functionalities a user needs
+- Move robot to goal joints or pose
+- Plan motions
+- Attach/Detach objects
+
+# Files that need to be started for moveit
+- Load joint names config
+- Define sim flag and robot ip arguments
+- Include planning context launch and make robot description loading true
+- If sim is true then launch robot interface simulator
+- If sim is false then real robot nodes
+- Then state publisher
+- Launch move_group
+- Moveit rviz

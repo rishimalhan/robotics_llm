@@ -1,0 +1,25 @@
+planning_scene:
+  name: "llm_grasp_01"
+
+  # Define the collision objects in the planning scene
+  collision_objects:
+    - name: "table"
+      type: "box"
+
+      # Specify the dimensions of the box (length, width, height)
+      dimensions: [0.2, 0.2, 0.2]
+
+      # Define the pose of the box in the world frame
+      pose:
+        position:
+          x: 0.5
+          y: 0.0
+          z: 0.1
+        orientation:
+          x: 0.0
+          y: 0.0
+          z: 0.0
+          w: 1.0
+
+  # Define other properties of the planning scene, if needed
+  # ...
