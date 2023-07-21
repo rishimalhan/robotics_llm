@@ -16,25 +16,26 @@ import logging
 import argparse
 from IPython import embed
 
+# Internal
+from core.bootstrap import bootstrap
 
 logging.basicConfig()
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("rosout")
 logger.setLevel(logging.INFO)
 
 parser = argparse.ArgumentParser()
-parser.add_argument(
-    "--group_name", type=str, required=True, help="Name of the move group"
-)
 args = parser.parse_args()
 
 moveit_commander.roscpp_initialize(sys.argv)
 rospy.init_node("test_moveit", anonymous=True)
 
+bootstrap(args)
+
 robot = moveit_commander.RobotCommander()
 
 scene = moveit_commander.PlanningSceneInterface()
 
-move_group = moveit_commander.MoveGroupCommander(args.group_name)
+move_group = moveit_commander.MoveGroupCommander("manipulator")
 
 display_trajectory_publisher = rospy.Publisher(
     "/move_group/display_planned_path",
@@ -50,4 +51,4 @@ logger.info(f"EE Link: {eef_link}")
 
 logger.info(f"Current robot state: {robot.get_current_state().joint_state.position}")
 
-# embed()
+embed()

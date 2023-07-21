@@ -1,25 +1,29 @@
-planning_scene:
-  name: "llm_grasp_01"
+name: llm_grasp_01
+meshes:
+  conveyor:
+    visual: package://systems/assets/meshes/visual/conveyor.stl
+    collision: package://systems/assets/meshes/collision/conveyor.stl
+    pose:
+      position:
+        x: 1.5
+        y: -0.8
+        z: 0.0
+      orientation:
+        x: 0.0
+        y: 0.0
+        z: 0.707
+        w: 0.707
 
-  # Define the collision objects in the planning scene
-  collision_objects:
-    - name: "table"
-      type: "box"
-
-      # Specify the dimensions of the box (length, width, height)
-      dimensions: [0.2, 0.2, 0.2]
-
-      # Define the pose of the box in the world frame
-      pose:
-        position:
-          x: 0.5
-          y: 0.0
-          z: 0.1
-        orientation:
-          x: 0.0
-          y: 0.0
-          z: 0.0
-          w: 1.0
-
-  # Define other properties of the planning scene, if needed
-  # ...
+  shelving:
+    visual: package://systems/assets/meshes/visual/shelving.stl
+    collision: package://systems/assets/meshes/collision/shelving.stl
+    pose:
+      position:
+        x: 0.4
+        y: 0.72
+        z: 0.0
+      orientation:
+        x: 0.5
+        y: 0.5
+        z: 0.5
+        w: 0.5
