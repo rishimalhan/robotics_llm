@@ -7,24 +7,24 @@ __metaclass__ = type
 
 # External
 
-import rospy
-import threading
-from moveit_commander.robot import RobotCommander
 from moveit_commander.planning_scene_interface import PlanningSceneInterface
-from moveit_commander.move_group import MoveGroupCommander
-from geometry_msgs.msg import Pose
-import numpy as np
 import logging
-from tf.transformations import quaternion_matrix, quaternion_from_matrix
 
 # Internal
 
 from core.utils import get_param, get_absolute_file_path, dict_pose_to_ros_pose
 from core.visualization import visualize_planning_scene
+from core.planner import Planner
+from core.executor import Executor
 
 logging.basicConfig()
 logger = logging.getLogger("rosout")
 logger.setLevel(logging.INFO)
+
+
+def bootstrap_robot():
+    trajectory = Planner().plan_to_configuration(configuration=[0, 0, 0, 0, 0, 0])
+    Executor().execute(trajectory=trajectory)
 
 
 def bootstrap_environment():
@@ -47,3 +47,4 @@ def bootstrap_environment():
 
 def bootstrap(args):
     bootstrap_environment()
+    bootstrap_robot()

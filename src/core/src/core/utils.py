@@ -10,6 +10,7 @@ from tf.transformations import (
     euler_matrix,
     euler_from_matrix,
     euler_from_quaternion,
+    quaternion_from_matrix,
 )
 import rospkg
 import roslib
@@ -101,10 +102,10 @@ def dict_pose_to_ros_pose(dict_pose):
 
 def pose_stamped_to_matrix(pose):
     pose = pose.pose
-    q0 = pose.orientation.x
-    q1 = pose.orientation.y
-    q2 = pose.orientation.z
-    q3 = pose.orientation.w
+    q1 = pose.orientation.x
+    q2 = pose.orientation.y
+    q3 = pose.orientation.z
+    q0 = pose.orientation.w
 
     # First row of the rotation matrix
     r00 = 2 * (q0 * q0 + q1 * q1) - 1
@@ -131,10 +132,11 @@ def pose_stamped_to_matrix(pose):
 def matrix_to_pose_stamped(matrix, frame_id="base_link"):
     pose = PoseStamped()
     pose.header.frame_id = frame_id
-    pose.pose.orientation.w = matrix[0, 0]
-    pose.pose.orientation.x = matrix[1, 0]
-    pose.pose.orientation.y = matrix[2, 0]
-    pose.pose.orientation.z = matrix[0, 1]
+    quaternion = quaternion_from_matrix(matrix)
+    pose.pose.orientation.w = quaternion[3]
+    pose.pose.orientation.x = quaternion[0]
+    pose.pose.orientation.y = quaternion[1]
+    pose.pose.orientation.z = quaternion[2]
     pose.pose.position.x = matrix[0, 3]
     pose.pose.position.y = matrix[1, 3]
     pose.pose.position.z = matrix[2, 3]

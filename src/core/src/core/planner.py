@@ -51,11 +51,19 @@ class Planner:
             return None
         return trajectory
 
-    def plan_to_target(self, target):
+    def plan_to_target(self, target=None):
         try:
-            (success, trajectory, planning_time, error_code) = self.move_group.plan(
-                target.pose
-            )
+            if target:
+                (success, trajectory, planning_time, error_code) = self.move_group.plan(
+                    target.pose
+                )
+            else:
+                (
+                    success,
+                    trajectory,
+                    planning_time,
+                    error_code,
+                ) = self.move_group.plan()
             if success:
                 logger.info(
                     f"Planning to target succeeded in duration: {planning_time}"
@@ -67,3 +75,11 @@ class Planner:
                 )
         except Exception as exc:
             logger.warn(f"Planning to target failed: {exc}")
+        return None
+
+    def plan_to_configuration(self, configuration):
+        try:
+            self.move_group.set_joint_value_target(configuration)
+        except Exception as exc:
+            logger.warn(f"Setting joint value target failed: {exc}")
+        return self.plan_to_target()

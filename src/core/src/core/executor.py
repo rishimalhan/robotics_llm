@@ -30,9 +30,17 @@ class Executor:
         self.scene.clear()
         rospy.sleep(0.2)
 
-    def execute(self, trajectory):
+    def execute(
+        self, trajectory, velocity_scaling_factor=1.0, acceleration_scaling_factor=1.0
+    ):
         try:
-            logger.info(f"Executing trajectory with duration: {trajectory.duration}")
+            trajectory = self.move_group.retime_trajectory(
+                self.move_group.get_current_state(),
+                trajectory,
+                velocity_scaling_factor=velocity_scaling_factor,
+                acceleration_scaling_factor=acceleration_scaling_factor,
+                algorithm="iterative_time_parameterization",
+            )
             self.move_group.execute(trajectory, wait=True)
             self.move_group.stop()
         except ValueError as value_exc:
