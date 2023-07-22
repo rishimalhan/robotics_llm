@@ -17,10 +17,31 @@ import roslib
 import rosparam
 import os
 import tf
+import moveit_msgs
 
 # Internal
 
 from core.visualization import visualize_target
+
+
+def concatenate_trajectories(trajectory1, trajectory2):
+    # Create a new trajectory
+    merged_trajectory = moveit_msgs.msg.RobotTrajectory()
+
+    # Append waypoints from the first trajectory to the merged trajectory
+    merged_trajectory.joint_trajectory = trajectory1.joint_trajectory
+
+    # Append waypoints from the second trajectory to the merged trajectory
+    for point in trajectory2.joint_trajectory.points:
+        merged_trajectory.joint_trajectory.points.append(point)
+
+    # Update the number of points in the merged trajectory
+    merged_trajectory.joint_trajectory.header.stamp = rospy.Time.now()
+    merged_trajectory.joint_trajectory.header.frame_id = (
+        "base_link"  # Replace with your desired frame
+    )
+
+    return merged_trajectory
 
 
 def get_joint_state_msg(state, group_name="joint"):
@@ -154,6 +175,25 @@ def transform_pose_to_world(base, pose):
     transformed_pose = matrix_to_pose_stamped(transformed_T, pose.header.frame_id)
 
     return transformed_pose
+
+
+def get_dict_grasp_from_state(state):
+    quaternion = quaternion_from_euler(state[3], state[4], state[5], "rxyz")
+    return {
+        "base": {
+            "position": {"x": 0, "y": 0, "z": 0},
+            "orientation": {"x": 0, "y": 0, "z": 0, "w": 1},
+        },
+        "pose": {
+            "position": {"x": state[0], "y": state[1], "z": state[2]},
+            "orientation": {
+                "x": quaternion[0],
+                "y": quaternion[1],
+                "z": quaternion[2],
+                "w": quaternion[3],
+            },
+        },
+    }
 
 
 def dict_grasp_to_target(dict_grasp, robot, visualize=True):

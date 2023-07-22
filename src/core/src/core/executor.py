@@ -26,24 +26,17 @@ class Executor:
         self.scene = PlanningSceneInterface(synchronous=True)
         self.move_group = MoveGroupCommander(self.group_name)
 
-    def __del__(self):
-        self.scene.clear()
-        rospy.sleep(0.2)
-
-    def execute(
-        self, trajectory, velocity_scaling_factor=1.0, acceleration_scaling_factor=1.0
-    ):
-        try:
-            trajectory = self.move_group.retime_trajectory(
-                self.move_group.get_current_state(),
-                trajectory,
-                velocity_scaling_factor=velocity_scaling_factor,
-                acceleration_scaling_factor=acceleration_scaling_factor,
-                algorithm="iterative_time_parameterization",
-            )
-            self.move_group.execute(trajectory, wait=True)
-            self.move_group.stop()
-        except ValueError as value_exc:
-            logger.warn(f"Trajectory execution failed due to: {value_exc}")
-        except Exception as exc:
-            logger.warn(f"Trajectory execution failed due to: {exc}")
+    def execute(self, trajectories):
+        if trajectories is None:
+            logger.warn("No trajectory to be executed")
+            return
+        if not isinstance(trajectories, list):
+            trajectories = [trajectories]
+        for trajectory in trajectories:
+            try:
+                self.move_group.execute(trajectory, wait=True)
+                self.move_group.stop()
+            except ValueError as value_exc:
+                logger.warn(f"Trajectory execution failed due to: {value_exc}")
+            except Exception as exc:
+                logger.warn(f"Trajectory execution failed due to: {exc}")

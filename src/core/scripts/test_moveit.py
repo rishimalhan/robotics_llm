@@ -57,8 +57,11 @@ logger.info(f"Current robot state: {robot.get_current_state().joint_state.positi
 grasps = get_param("environment").get("grasps")
 singulation_planner = Planner()
 executor = Executor()
-trajectory = singulation_planner.plan_to_target(
+trajectory = singulation_planner.plan_grasp(
     target=dict_grasp_to_target(grasps.get("bin_6"), robot)
 )
-executor.execute(trajectory)
-embed()
+executor.execute(trajectories=trajectory)
+home_trajectory = singulation_planner.plan_to_home()
+executor.execute(trajectories=home_trajectory)
+
+# embed()

@@ -60,26 +60,27 @@ def visualize_planning_scene(visual_meshes):
 
 
 def visualize_target(grasp, ee, br, suffix=""):
-    try:
-        br.sendTransform(
-            grasp[0:3, 3],
-            quaternion_from_matrix(grasp),  # xyzw
-            rospy.Time.now(),
-            "grasp_target",
-            "base_link",
-        )
-        rospy.sleep(0.1)
-    except Exception as exc:
-        logger.warn(f"Sending grasp transform failed due to: {exc}")
+    for i in range(5):
+        try:
+            br.sendTransform(
+                grasp[0:3, 3],
+                quaternion_from_matrix(grasp),  # xyzw
+                rospy.Time.now(),
+                "grasp_target",
+                "base_link",
+            )
+            rospy.sleep(0.05)
+        except Exception as exc:
+            logger.warn(f"Sending grasp transform failed due to: {exc}")
 
-    try:
-        br.sendTransform(
-            ee[0:3, 3],
-            quaternion_from_matrix(ee),  # xyzw
-            rospy.Time.now(),
-            "ee_target",
-            "base_link",
-        )
-        rospy.sleep(0.1)
-    except Exception as exc:
-        logger.warn(f"Sending ee transform failed due to: {exc}")
+        try:
+            br.sendTransform(
+                ee[0:3, 3],
+                quaternion_from_matrix(ee),  # xyzw
+                rospy.Time.now(),
+                "ee_target",
+                "base_link",
+            )
+            rospy.sleep(0.05)
+        except Exception as exc:
+            logger.warn(f"Sending ee transform failed due to: {exc}")
