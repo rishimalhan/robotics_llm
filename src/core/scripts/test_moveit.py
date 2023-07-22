@@ -61,7 +61,15 @@ trajectory = singulation_planner.plan_grasp(
     target=dict_grasp_to_target(grasps.get("bin_6"), robot)
 )
 executor.execute(trajectories=trajectory)
+
 home_trajectory = singulation_planner.plan_to_home()
 executor.execute(trajectories=home_trajectory)
 
+trajectory = singulation_planner.plan_to_target(
+    target=dict_grasp_to_target(grasps.get("tote"), robot)
+)
+executor.execute(trajectories=trajectory)
+
+home_trajectory = singulation_planner.plan_to_home()
+executor.execute(trajectories=home_trajectory)
 # embed()

@@ -21,6 +21,7 @@ from core.utils import (
     concatenate_trajectories,
     get_dict_grasp_from_state,
     dict_grasp_to_target,
+    pose_equality,
 )
 
 logging.basicConfig()
@@ -41,6 +42,9 @@ class Planner:
     def plan_to_home(self):
         dict_target = get_dict_grasp_from_state(HOME_TARGET)
         target = dict_grasp_to_target(dict_target, self.robot)
+        if pose_equality(target.pose, self.robot.get_link("tool0").pose().pose):
+            logger.warn("Robot already at home. Ignoring Move")
+            return None
         trajectory = Planner().plan_to_target(target)
         return trajectory
 
@@ -124,7 +128,7 @@ class Planner:
         ].velocities
         self.move_group.set_start_state(robot_state)
 
-    def plan_grasp(self, target, approach_offset=0.2, scale_factors=0.01):
+    def plan_grasp(self, target, approach_offset=0.1, scale_factors=0.01):
         # Translate the target away
         approach_matrix = pose_stamped_to_matrix(target)
         approach_matrix[0:3, 3] -= approach_matrix[0:3, 2] * approach_offset

@@ -27,8 +27,42 @@ meshes:
         y: 0.5
         z: 0.5
         w: 0.5
+  tote:
+    visual: package://systems/assets/meshes/visual/tote2.stl
+    collision: package://systems/assets/meshes/collision/tote2.stl
+    pose:
+      position:
+        x: 0.77
+        y: -0.62
+        z: 0.41
+      orientation:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+        w: 1.0
 
 grasps:
+  tote:
+    base:
+      position:
+        x: 0.77
+        y: -0.62
+        z: 0.41
+      orientation:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+        w: 1.0
+    pose:
+      position:
+        x: 0.0
+        y: 0.0
+        z: 0.22
+      orientation:
+        x: -0.707
+        y: 0.707
+        z: 0.0
+        w: 0.0
   bin_6:
     base:
       position:

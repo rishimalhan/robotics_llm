@@ -61,23 +61,6 @@ def tf_to_matrix(tf):
     return matrix
 
 
-def tool0_from_camera(state, transformer):
-    base_T_camera = state_to_matrix(state)
-    tool0_T_camera_vec = transformer.lookupTransform(
-        "tool0", "camera_depth_optical_frame", rospy.Time(0)
-    )
-    tool0_T_camera = quaternion_matrix(
-        [
-            tool0_T_camera_vec[1][0],
-            tool0_T_camera_vec[1][1],
-            tool0_T_camera_vec[1][2],
-            tool0_T_camera_vec[1][3],
-        ]
-    )
-    tool0_T_camera[0:3, 3] = tool0_T_camera_vec[0]
-    return matrix_to_state(np.matmul(base_T_camera, np.linalg.inv(tool0_T_camera)))
-
-
 def pose_to_state(pose):
     return np.hstack(
         (
@@ -194,6 +177,19 @@ def get_dict_grasp_from_state(state):
             },
         },
     }
+
+
+def pose_equality(pose1, pose2):
+    if (
+        (pose1.position.x - pose2.position.x < 1e-4)
+        and (pose1.position.y - pose2.position.y < 1e-4)
+        and (pose1.position.z - pose2.position.z < 1e-4)
+        and (pose1.orientation.x - pose2.orientation.x < 1e-4)
+        and (pose1.orientation.y - pose2.orientation.y < 1e-4)
+        and (pose1.orientation.z - pose2.orientation.z < 1e-4)
+        and (pose1.orientation.w - pose2.orientation.w < 1e-4)
+    ):
+        return True
 
 
 def dict_grasp_to_target(dict_grasp, robot, visualize=True):
