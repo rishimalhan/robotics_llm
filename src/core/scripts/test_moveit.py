@@ -15,6 +15,9 @@ import geometry_msgs.msg
 import logging
 import argparse
 from IPython import embed
+from core.planner import Planner
+from core.executor import Executor
+from core.utils import dict_grasp_to_target, get_param
 
 # Internal
 from core.bootstrap import bootstrap
@@ -51,4 +54,11 @@ logger.info(f"EE Link: {eef_link}")
 
 logger.info(f"Current robot state: {robot.get_current_state().joint_state.position}")
 
+grasps = get_param("environment").get("grasps")
+singulation_planner = Planner()
+executor = Executor()
+trajectory = singulation_planner.plan_to_target(
+    target=dict_grasp_to_target(grasps.get("bin_6"), robot)
+)
+executor.execute(trajectory)
 embed()

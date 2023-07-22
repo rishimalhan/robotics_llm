@@ -6,6 +6,8 @@ import rospy
 import threading
 from visualization_msgs.msg import Marker, MarkerArray
 import logging
+from tf.transformations import quaternion_from_matrix
+
 
 logging.basicConfig()
 logger = logging.getLogger("rosout")
@@ -55,3 +57,21 @@ def visualize_planning_scene(visual_meshes):
     # Start the thread
     logger.info("Starting Planning Scene Visuals")
     stl_thread.start()
+
+
+def visualize_target(grasp, ee, br, suffix=""):
+    br.sendTransform(
+        grasp[0:3, 3],
+        quaternion_from_matrix(grasp),  # xyzw
+        rospy.Time.now(),
+        "grasp_target",
+        "base_link",
+    )
+
+    br.sendTransform(
+        ee[0:3, 3],
+        quaternion_from_matrix(ee),  # xyzw
+        rospy.Time.now(),
+        "ee_target",
+        "base_link",
+    )

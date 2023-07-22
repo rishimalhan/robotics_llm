@@ -36,18 +36,6 @@ class MoveitInterface:
         self.scene.clear()
         rospy.sleep(0.2)
 
-    def get_pose(self, matrix):
-        config = Pose()
-        config.position.x = matrix[0, 3]
-        config.position.y = matrix[1, 3]
-        config.position.z = matrix[2, 3]
-        quaternion = quaternion_from_matrix(matrix)
-        config.orientation.x = quaternion[0]
-        config.orientation.y = quaternion[1]
-        config.orientation.z = quaternion[2]
-        config.orientation.w = quaternion[3]
-        return config
-
     def execute_cartesian_path(
         self, waypoints, avoid_collisions=True, async_exec=False, vel_scale=1.0
     ):

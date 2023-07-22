@@ -288,6 +288,14 @@ Visualization Manager:
                               {}
       Update Interval: 0
       Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /planning_scene_visual
+      Name: MarkerArray
+      Namespaces:
+        "": true
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -304,7 +312,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.36277437210083
+      Distance: 2.91662859916687
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -312,17 +320,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.9749999046325684
-        Y: 0.05815237760543823
-        Z: 4.3213424305577064e-07
+        X: 1.524029016494751
+        Y: 0.21437802910804749
+        Z: -4.470291514735436e-08
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.4447977542877197
+      Pitch: 0.3947978615760803
       Target Frame: base_link
-      Yaw: 0.15361377596855164
+      Yaw: 5.891798496246338
     Saved: ~
 Window Geometry:
   Displays:
