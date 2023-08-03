@@ -1,0 +1,37 @@
+# Prompt designing
+Allows us to adjust pre-trained model parameters to our own dataset
+Either manually or by training it on a dataset tailored for a given task
+
+Benefits of fine tuning:
+1. Accuracy
+- Provides analytics
+- Understands your business or industry language
+- Improve accuracy on your data
+- Train model on business data and gain insights into understanding operations and make data-driven decisions
+
+2. Customization
+- General model will give general conclusions requiring further research intervention
+
+3. Real world use
+
+# Process of fine tuning
+1. Decide objectives and tasks. what you want from your model.
+2. Setup libraries and working environment
+3. Clean data
+4. Validate data. Often a manual process
+
+# Preparing data
+1. Standardization 
+- Engineering prompt ensures correct output is acquired (things like standard length of output)
+
+2. Augmenting the data
+- Use gpt itself to generate new dataset and augment to the existing ones
+- e.g. if user is inputting free text then it is important to enhance prompt
+- if different ways and styles of answering the same question is required, enhancing completion maybe good
+- Whole paragraph or specific information. More and sparse is cheap.  More and dense is expensive.
+
+3. Clean up
+- No spelling mistakes, removing duplicates, correct formatting
+
+4. 
+
