@@ -95,3 +95,30 @@ reliefer: bin number 7
 energy pill: bin number 8
 
 An example is when customer is feeling muscle pain and asks you for a medicine, you will determine which medication you have from your list. Move the gantry closer to bin where the medicine is. Use the robot to grasp and pull the bin out and then grab medicines from that bin. Keep collecting all the items that customer wants until the order is finish and then return to home and deliver the order. You can use the functions I gave above. Are you ready?
+
+
+https://tidybot.cs.princeton.edu/
+
+# TidyBot
+
+# Goal
+Goal is to learn user preferences that can be generally applicable to variety of tasks
+
+# Capabilities
+- Tidybot is for a consumer to help them clean up and arrange belongings in the house
+- Consumers have different preferences based on cultural and personal traits
+- Tidybot uses language-based planning and perception to learn the prefrences
+- Few shot learning
+- 91.2% accuracy on benchmark dataset and 85% on real world examples
+
+# Key Insight
+- Key challenge is determining PLACE to put away stuff as that depends on prefrences
+- Conventional methods would either require preferences to be defined, learn from dataset (difficult to collect) and generalize them, or extrapolate from a few prior experiences
+- Authors explot the SUMMARIZATION capability of LLM to learn preferences
+- User is asked for a few examples of their preferences, LLM then summarizes them into general principles. Nouns are passed to open-vocabulary image classifier.
+- So LLM will be used for both receptable selection and motion primitve selection
+
+# Prompting
+- Provide examples of objects in the scene, what are different pick and place functions that can be used for prompting. Summary that contains generalization of the actions in the functions.
+- CLIP is the open-vocabulary image classification
+- ViLD for object detection

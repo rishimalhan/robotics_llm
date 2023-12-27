@@ -33,5 +33,9 @@ Benefits of fine tuning:
 3. Clean up
 - No spelling mistakes, removing duplicates, correct formatting
 
-4. 
+# Prompt Engineering and Few Shot Prompting
 
+# Use Cases:
+Functional Representation: Given some data, model is required to construct underlying representation in the form of attribute-values. e.g. It could be either informing(attr: val), requesting(.), recommendting, etc
+
+pcs5pqvp
